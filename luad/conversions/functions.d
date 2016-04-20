@@ -274,6 +274,7 @@ void pushFunction(T)(lua_State* L, T func) if (isSomeFunction!T)
 // TODO: optimize for non-virtual functions
 void pushMethod(T, string member)(lua_State* L) if (isSomeFunction!(__traits(getMember, T, member)))
 {
+	pragma(msg,"pushMethod "~T.stringof~ " " ~member.stringof);
 	alias M = typeof(mixin("&T.init." ~ member));
 
 	enum isVirtual = !is(T == struct); // TODO: final methods should also be handled...
